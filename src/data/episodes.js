@@ -1,0 +1,38 @@
+export const EPISODES = [
+  {
+    id: 1,
+    title: "El Milagro de las Rosas",
+    season: 1, episode: 1,
+    duration: "42 min",
+    emoji: "🌹",
+    gradient: "linear-gradient(135deg,#7c3aed,#a855f7)",
+    badge: "Clásico",
+  },
+  {
+    id: 2,
+    title: "La Fe que Todo lo Puede",
+    season: 2, episode: 5,
+    duration: "38 min",
+    emoji: "✨",
+    gradient: "linear-gradient(135deg,#1d4ed8,#7c3aed)",
+    badge: "Popular",
+  },
+  {
+    id: 3,
+    title: "Cuando Dios Habla",
+    season: 3, episode: 8,
+    duration: "44 min",
+    emoji: "🕊️",
+    gradient: "linear-gradient(135deg,#0f766e,#0891b2)",
+    badge: null,
+  },
+  {
+    id: 4,
+    title: "Perdón y Redención",
+    season: 4, episode: 3,
+    duration: "40 min",
+    emoji: "🙏",
+    gradient: "linear-gradient(135deg,#be185d,#9333ea)",
+    badge: "Nuevo",
+  },
+]
