@@ -1,0 +1,56 @@
+.header {
+  padding: 48px 40px 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.header h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: .05em;
+  color: var(--rose-light);
+}
+
+.header p {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 32px 40px 60px;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 80px 24px;
+  text-align: center;
+}
+
+.emptyIcon {
+  width: 64px; height: 64px;
+  background: var(--rose-glow);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--rose);
+}
+
+.empty h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 16px;
+  color: var(--rose-light);
+}
+
+.empty p {
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 280px;
+}
