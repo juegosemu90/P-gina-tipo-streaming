@@ -1,0 +1,32 @@
+/* ── Variables ── */
+:root {
+  --bg-deep:    #0D0A1A;
+  --bg-card:    #16112B;
+  --bg-hover:   #1F1840;
+  --rose:       #C084FC;
+  --rose-light: #E9D5FF;
+  --rose-glow:  rgba(192, 132, 252, 0.25);
+  --gold:       #F5C842;
+  --white:      #F0EAF8;
+  --muted:      #7C6FA0;
+  --border:     rgba(192, 132, 252, 0.18);
+  --nav-h:      64px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-deep);
+  color: var(--white);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
