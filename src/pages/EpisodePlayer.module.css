@@ -1,0 +1,124 @@
+.wrapper {
+  min-height: calc(100vh - var(--nav-h));
+  background: #000;
+  padding-bottom: 60px;
+}
+
+/* ── Botón volver ── */
+.backBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  padding: 16px 20px;
+  transition: color .2s;
+}
+
+.backBtn:hover { color: var(--white); }
+
+/* ── Reproductor ── */
+.playerWrapper {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  position: relative;
+}
+
+.player {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: none;
+}
+
+.noVideo {
+  width: 100%; height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* ── Info ── */
+.info {
+  padding: 24px 20px 0;
+  max-width: 900px;
+}
+
+.epLabel {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(18px, 4vw, 28px);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.3;
+  margin-bottom: 16px;
+}
+
+/* ── Chips fecha / duración ── */
+.metaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.metaChip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  background: var(--chip-color, rgba(192,132,252,0.12));
+  border: 1px solid var(--chip-border, rgba(192,132,252,0.3));
+  color: var(--chip-text, var(--rose-light));
+}
+
+/* ── Descripción ── */
+.descCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+
+.desc {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #c4b8d8;
+}
+
+/* ── Responsive desktop ── */
+@media (min-width: 768px) {
+  .backBtn { padding: 20px 32px; }
+
+  .info {
+    padding: 28px 32px 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .playerWrapper {
+    max-height: 70vh;
+    aspect-ratio: unset;
+    height: 70vh;
+  }
+
+  .info { padding: 28px 40px 0; }
+}
