@@ -1,0 +1,206 @@
+/* ── Wrapper iframe ── */
+.iframeWrapper {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.iframe {
+  width: 100%; height: 100%;
+  border: none; display: block;
+}
+.iframeCover {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: transparent;
+  -webkit-tap-highlight-color: transparent;
+  pointer-events: auto;
+}
+.noVideo {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  color: #888; font-size: 14px;
+}
+
+/* ── Contenedor principal ── */
+.player {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  overflow: hidden;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.player *, .player *:focus, .player *:active {
+  outline: none !important;
+  box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.player.fullscreen {
+  position: fixed;
+  inset: 0;
+  width: 100vw; height: 100vh;
+  aspect-ratio: unset;
+  z-index: 9999;
+}
+
+.video {
+  width: 100%; height: 100%;
+  display: block;
+  object-fit: contain;
+  background: #000;
+}
+
+/* ── Play central ── */
+.centerPlay {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px; height: 60px;
+  background: rgba(0,0,0,.5);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #ccc;
+  pointer-events: none;
+}
+.centerPlay svg { width: 28px; height: 28px; margin-left: 3px; }
+
+/* ── Controles — barra igual a la imagen ── */
+.controls {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  opacity: 0;
+  transition: opacity .22s;
+  /* Fondo negro sólido como en la imagen */
+  background: rgba(0, 0, 0, 0.82);
+  padding: 0;
+}
+.controls.visible { opacity: 1; }
+
+/* ── Fila única con todo ── */
+.btnRow {
+  display: flex;
+  align-items: center;
+  padding: 6px 8px;
+  gap: 6px;
+  height: 38px;
+}
+
+/* ── Botones ── */
+.ctrlBtn {
+  width: 26px; height: 26px;
+  background: none !important;
+  border: none !important;
+  color: #bbb;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  padding: 3px;
+  flex-shrink: 0;
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+  user-select: none;
+  transition: color .15s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.ctrlBtn:hover  { color: #fff; }
+.ctrlBtn:focus,
+.ctrlBtn:active { outline: none !important; background: none !important; }
+.ctrlBtn svg { width: 100%; height: 100%; display: block; }
+
+/* ── Barra de progreso — ocupa todo el espacio central ── */
+.progressWrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  cursor: pointer;
+  padding: 0 2px;
+}
+
+.progressBar {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  background: #444;
+  border-radius: 0;
+}
+
+.bufferedBar {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  background: #666;
+  pointer-events: none;
+}
+
+.playedBar {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  background: #cc0000;
+  pointer-events: none;
+}
+
+/* Scrubber cuadrado blanco — igual al de la imagen */
+.scrubber {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 11px;
+  height: 11px;
+  background: #ddd;
+  border-radius: 2px; /* cuadrito con esquinas ligeramente redondeadas */
+  pointer-events: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,.6);
+}
+
+/* ── Tiempo ── */
+.time {
+  font-size: 10.5px;
+  color: #aaa;
+  white-space: nowrap;
+  user-select: none;
+  letter-spacing: .01em;
+  flex-shrink: 0;
+}
+
+/* ── Volumen ── */
+.volumeWrap { display: flex; align-items: center; }
+.volumeSliderWrap {
+  width: 0; overflow: hidden;
+  transition: width .18s;
+  display: flex; align-items: center;
+}
+.volumeVisible { width: 60px; }
+
+.volumeSlider {
+  -webkit-appearance: none; appearance: none;
+  width: 56px; height: 3px;
+  background: #555;
+  border-radius: 0;
+  outline: none !important;
+  cursor: pointer;
+  border: none;
+}
+.volumeSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px; height: 10px;
+  border-radius: 2px;
+  background: #ccc; cursor: pointer;
+}
+.volumeSlider::-moz-range-thumb {
+  width: 10px; height: 10px;
+  border-radius: 2px; background: #ccc;
+  border: none; cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .time { font-size: 9.5px; }
+  .ctrlBtn { width: 22px; height: 22px; }
+  .btnRow { padding: 5px 6px; height: 34px; }
+}
