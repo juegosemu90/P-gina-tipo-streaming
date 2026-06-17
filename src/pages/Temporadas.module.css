@@ -1,0 +1,261 @@
+.loading { min-height: calc(100vh - var(--nav-h)); display: flex; align-items: center; justify-content: center; }
+.spinner { width: 36px; height: 36px; border: 3px solid var(--border); border-top-color: var(--rose); border-radius: 50%; animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.wrapper { display: flex; flex-direction: column; min-height: calc(100vh - var(--nav-h)); }
+
+/* ── Botón selector — pegado debajo de navbar ── */
+.seasonSelector {
+  position: sticky;
+  top: var(--nav-h);
+  z-index: 50;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: var(--bg-card);
+  border: none;
+  border-bottom: 1px solid var(--border);
+  color: var(--white);
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.seasonSelectorText {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Cinzel', serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--rose-light);
+}
+
+.seasonSelectorCount {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--muted);
+  background: var(--bg-hover);
+  padding: 2px 9px;
+  border-radius: 12px;
+}
+
+/* ── Modal overlay ── */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(4px);
+  z-index: 300;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  animation: fadeIn .2s ease;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.modal {
+  width: 100%;
+  max-width: 480px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-bottom: none;
+  border-radius: 18px 18px 0 0;
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp .25s cubic-bezier(.32,.72,0,1);
+}
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--border);
+}
+.modalHeader h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--rose-light);
+}
+
+.modalClose {
+  background: none; border: none;
+  color: var(--muted); cursor: pointer;
+  display: flex; align-items: center;
+  padding: 4px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.modalList {
+  overflow-y: auto;
+  padding: 8px 12px 24px;
+}
+
+.modalItem {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 12px;
+  background: none;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: background .15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.modalItem:hover { background: var(--bg-hover); }
+
+.modalItemActive {
+  background: var(--rose-glow) !important;
+}
+
+.modalItemLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--white);
+}
+.modalItemActive .modalItemLabel { color: var(--rose-light); }
+
+.modalItemRight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modalItemCount {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.modalCheck { color: var(--rose); flex-shrink: 0; }
+
+/* ── Contenido ── */
+.content { flex: 1; padding: 16px 16px 24px; }
+
+.empty {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 8px; padding: 60px 24px; text-align: center;
+}
+.emptyIcon { font-size: 36px; margin-bottom: 6px; opacity: .6; }
+.empty h3 { font-family: 'Cinzel', serif; font-size: 15px; color: var(--rose-light); }
+.empty p { font-size: 12.5px; color: var(--muted); max-width: 260px; }
+
+/* ── Lista en filas horizontales ── */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
+  transition: border-color .2s, background .2s;
+}
+.row:hover {
+  border-color: rgba(192,132,252,.4);
+  background: var(--bg-hover);
+}
+
+.rowThumb {
+  position: relative;
+  flex-shrink: 0;
+  width: 130px;
+  aspect-ratio: 16/9;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #111;
+}
+.rowThumbImg { width: 100%; height: 100%; object-fit: cover; display: block; }
+.rowThumbFallback { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+
+.rowDuration {
+  position: absolute; bottom: 4px; right: 4px;
+  background: rgba(0,0,0,.78); color: #fff;
+  font-size: 9px; font-weight: 600;
+  padding: 1px 5px; border-radius: 3px;
+}
+
+.rowScheduledBadge {
+  position: absolute; top: 4px; right: 4px;
+  background: rgba(245,200,66,.85);
+  color: #000;
+  width: 18px; height: 18px;
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+}
+.rowScheduled { border-color: rgba(245,200,66,.3) !important; }
+
+.rowOverlay {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,.4);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity .2s;
+}
+.row:hover .rowOverlay { opacity: 1; }
+.rowPlayBtn {
+  width: 30px; height: 30px;
+  background: var(--rose); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; color: #000;
+}
+
+.rowInfo {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+}
+
+.rowEpNum {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.rowTitle {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--white);
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rowDesc {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.rowMeta {
+  display: flex;
+  align-items: center;
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 2px;
+}
