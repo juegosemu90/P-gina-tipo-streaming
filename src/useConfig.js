@@ -11,6 +11,7 @@ const DEFAULT = {
 }
 
 const DEFAULT_PLAYER = {
+  style: 'classic',
   progressColor: '#cc0000',
   controlsBg: 'rgba(0,0,0,0.82)',
   scrubberShape: 'square',
