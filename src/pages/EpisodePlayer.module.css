@@ -122,3 +122,8 @@
 
   .info { padding: 28px 40px 0; }
 }
+
+.playerContainer {
+  position: relative;
+  width: 100%;
+}
