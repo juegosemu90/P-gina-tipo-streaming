@@ -127,3 +127,27 @@
   position: relative;
   width: 100%;
 }
+
+.wrapper:fullscreen {
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+.wrapper:-webkit-full-screen {
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+.wrapper:fullscreen .backBtn,
+.wrapper:-webkit-full-screen .backBtn {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 50;
+}
