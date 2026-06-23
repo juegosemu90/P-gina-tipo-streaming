@@ -291,7 +291,7 @@ export default function Inicio({ playerConfig, searchOpen, setSearchOpen }) {
                 >
                   <div className={styles.episodeRow2Top}>
                     <div className={styles.episodePlayCircle2} style={{ '--watched': 0 }}>
-                      <Play size={14} fill="#00c2ff" color="#00c2ff" style={{ marginLeft: 1 }} />
+                      <Play size={14} fill="#ffffff" color="#00c2ff" style={{ marginLeft: 1 }} />
                     </div>
                     <div className={styles.episodeRow2Info}>
                       <span className={styles.episodeRow2Title}>
