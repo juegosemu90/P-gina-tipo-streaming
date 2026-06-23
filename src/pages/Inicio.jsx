@@ -8,7 +8,7 @@ import styles from './Inicio.module.css'
 
 // Colores fijos para cada página (en vez de temporada)
 const PAGE_COLORS = {
-  1: '#f5c842', // amarillo
+  1: '#00dfff', // amarillo
   2: '#ef4444', // rojo
   3: '#3b82f6', // azul
   4: '#22c55e', // verde
