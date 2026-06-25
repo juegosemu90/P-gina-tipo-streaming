@@ -1,7 +1,7 @@
 .wrapper {
-  min-height: calc(100vh - var(--nav-h));
+  min-height: 100vh;
+  min-height: 100dvh;
   background: #000;
-  padding-bottom: 60px;
 }
 
 /* ── Botón volver ── */
