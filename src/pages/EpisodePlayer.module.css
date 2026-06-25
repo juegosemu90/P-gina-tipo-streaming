@@ -2,6 +2,7 @@
   min-height: 100vh;
   min-height: 100dvh;
   background: #000;
+  overflow: hidden;
 }
 
 /* ── Botón volver ── */
