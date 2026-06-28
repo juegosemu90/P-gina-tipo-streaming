@@ -1,0 +1,409 @@
+.iframeWrapper { width: 100%; aspect-ratio: 16/9; background: #000; position: relative; }
+.iframe { width: 100%; height: 100%; border: none; display: block; }
+.iframeCover { position: absolute; inset: 0; z-index: 1; -webkit-tap-highlight-color: transparent; }
+.noVideo { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: #888; font-size: 14px; }
+
+.player {
+  position: relative;
+  width: 100%;
+  /* dvh = altura dinámica real del navegador en móvil (vh a veces queda corto
+     por la barra del navegador, dejando huecos negros como en el problema reportado) */
+  height: 100vh;
+  height: 100dvh;
+  background: #000;
+  overflow: hidden;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.player * { outline: none !important; -webkit-tap-highlight-color: transparent !important; }
+
+.fullscreen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  aspect-ratio: unset;
+  z-index: 9999;
+}
+
+.video {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  display: block; object-fit: contain; background: #000;
+  transition: object-fit .1s;
+}
+.videoStretched { object-fit: cover; }
+
+/* ── Capa de UI ── */
+.uiLayer {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+  padding: 14px;
+}
+.uiLayer.visible { pointer-events: auto; }
+
+/* La fila de arriba sube y se desvanece; la de abajo baja y se desvanece */
+.topRow, .bottomBar {
+  transition: transform .35s ease, opacity .35s ease;
+}
+.topRow {
+  opacity: 0;
+  transform: translateY(-28px);
+}
+.bottomBar {
+  opacity: 0;
+  transform: translateY(28px);
+}
+.uiLayer.visible .topRow,
+.uiLayer.visible .bottomBar {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Fila superior ── */
+.topRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.topLeftGroup {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.backTitleBtn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 8px;
+  min-width: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+.backTitleBtn svg {
+  width: 26px; height: 26px;
+  flex-shrink: 0;
+  stroke: #fff;
+}
+
+.episodeTitleText {
+  color: #fff;
+  opacity: 1;
+  font-size: 19px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.topRightGroup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.episodeNumberText {
+  color: #fff;
+  opacity: 1;
+  font-size: 16px;
+  font-weight: 500;
+  white-space: nowrap;
+  margin-right: 4px;
+}
+
+.topDivider {
+  width: 1px;
+  height: 20px;
+  background: rgba(255,255,255,0.25);
+}
+
+.topBtn {
+  width: 42px; height: 42px;
+  background: none; border: none;
+  color: #fff; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  padding: 10px;
+  border-radius: 9px;
+  transition: background .15s;
+  flex-shrink: 0;
+}
+.topBtn:hover { background: rgba(255,255,255,.1); }
+.topBtn svg { width: 100%; height: 100%; }
+.topBtnActive { background: rgba(255,255,255,0.18); }
+
+/* Grupo volumen — el slider solo aparece al pasar el dedo/mouse cerca */
+.volumeGroup {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-shrink: 0;
+}
+
+.volumeSlider {
+  width: 0;
+  opacity: 0;
+  height: 4px;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 0;
+  background: linear-gradient(to right, #fff var(--vol-pct, 50%), rgba(255,255,255,.3) var(--vol-pct, 50%));
+  transition: width .25s ease, opacity .2s ease, margin-right .25s ease;
+  pointer-events: none;
+}
+.volumeSliderVisible {
+  width: 80px;
+  opacity: 1;
+  margin-right: 10px;
+  pointer-events: auto;
+}
+.volumeSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 13px; height: 13px;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,.4);
+}
+.volumeSlider::-moz-range-thumb {
+  width: 13px; height: 13px;
+  border-radius: 50%;
+  background: #fff; border: none; cursor: pointer;
+}
+
+.volumeIconBtn {
+  background: none; border: none;
+  color: #fff; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  width: 42px; height: 42px;
+  padding: 10px;
+  flex-shrink: 0;
+  border-radius: 9px;
+  transition: background .15s;
+}
+.volumeIconBtn:hover { background: rgba(255,255,255,.1); }
+.volumeIconBtn svg { width: 100%; height: 100%; }
+
+/* ── Cuerpo central ── */
+.body { flex: 1; }
+
+/* ── Barra inferior — ahora con 2 filas ── */
+.bottomBar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: rgba(40,40,40,0.55);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 10px 16px;
+}
+
+/* Fila 1: tiempo + progreso + tiempo restante */
+.progressRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+/* Fila 2: botones de control */
+.controlsRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.spacer { flex: 1; }
+
+.bottomIconBtn {
+  background: none; border: none;
+  color: #eee; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px;
+  flex-shrink: 0;
+  padding: 0;
+  transition: opacity .15s;
+}
+.bottomIconBtn:hover { opacity: .75; }
+.bottomIconBtn svg { width: 100%; height: 100%; }
+
+.playBtn {
+  background: none; border: none;
+  color: #eee; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px;
+  flex-shrink: 0;
+  padding: 0;
+}
+.playBtn svg { width: 100%; height: 100%; }
+
+.timeLabel {
+  font-size: 13px;
+  color: #ddd;
+  font-family: 'Inter', sans-serif;
+  flex-shrink: 0;
+  min-width: 42px;
+}
+.timeLabel:last-of-type { text-align: right; }
+
+.progressWrap {
+  flex: 1;
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+.progressTrack {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  background: #6e6e6e;
+  border-radius: 3px;
+}
+
+.progressFill {
+  position: absolute; left: 0; top: 0; bottom: 0;
+  border-radius: 3px;
+  background: #4db8ff;
+}
+
+.progressDot {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 13px; height: 13px;
+  border-radius: 50%;
+  background: #4db8ff;
+  box-shadow: 0 1px 3px rgba(0,0,0,.5);
+}
+
+@media (max-width: 480px) {
+  .uiLayer { padding: 8px; }
+  .topBtn { width: 36px; height: 36px; padding: 8px; }
+  .backTitleBtn { padding: 6px; gap: 6px; }
+  .backTitleBtn svg { width: 22px; height: 22px; }
+  .episodeTitleText { font-size: 15px; }
+  .episodeNumberText { font-size: 12.5px; margin-right: 2px; }
+  .volumeIconBtn { width: 36px; height: 36px; padding: 8px; }
+  .episodePanel { width: 240px; }
+  .bottomBar { padding: 8px 10px; gap: 8px; }
+  .timeLabel { font-size: 11px; min-width: 34px; }
+  .bottomIconBtn, .playBtn { width: 24px; height: 24px; }
+}
+
+/* ── Panel lateral: lista de episodios ── */
+.episodePanelOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.episodePanel {
+  width: 280px;
+  max-width: 80%;
+  height: 100%;
+  background: rgba(28,28,30,0.97);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  animation: advPanelSlideIn .25s ease;
+}
+@keyframes advPanelSlideIn {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+
+.episodePanelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  flex-shrink: 0;
+}
+.episodePanelClose {
+  background: none; border: none;
+  color: #fff; cursor: pointer;
+  width: 26px; height: 26px;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0;
+}
+.episodePanelClose svg { width: 100%; height: 100%; }
+
+.episodePanelList {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.episodePanelItem {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  color: #ddd;
+  text-align: left;
+  padding: 12px 18px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.episodePanelItem:hover { background: rgba(255,255,255,0.06); }
+.episodePanelItemActive {
+  background: rgba(77,184,255,0.15);
+  color: #fff;
+}
+.episodePanelItemNum {
+  font-size: 13px;
+  color: #4db8ff;
+  font-weight: 700;
+  flex-shrink: 0;
+  min-width: 26px;
+}
+.episodePanelItemTitle {
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Aro de carga — visible mientras el video está buffering ── */
+.loadingOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.35);
+  pointer-events: none;
+  z-index: 5;
+}
+.spinner {
+  width: 48px; height: 48px;
+  border: 3px solid rgba(255,255,255,0.25);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: advSpin 0.8s linear infinite;
+}
+@keyframes advSpin { to { transform: rotate(360deg); } }
