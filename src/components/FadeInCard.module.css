@@ -1,0 +1,7 @@
+.fadeCard {
+  opacity: 0;
+  transition: opacity .5s ease;
+}
+.fadeCardVisible {
+  opacity: 1;
+}
